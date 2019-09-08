@@ -45,6 +45,8 @@ class UserController extends Controller
      */
     public function store(Requests\User $request)
     {
+        $request->merge(['password' => Hash::make($request->get('password'))]);
+
         $user = User::create($request->all());
 
         return redirect()->route('admin.users.show', $user)->with('status', 'User created successfully.');
